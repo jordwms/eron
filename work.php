@@ -11,10 +11,10 @@ mail_time( $clean_arr );
 // Cleans the $_POST array values
 function sanitize() {
 	foreach($_POST as $key => $val) {
+		$key = test_input($key);
 		$clean_arr[$key] = test_input($val);
 	}
 	return $clean_arr;
-
 }
 
 function mail_time($form_data) {
@@ -23,6 +23,7 @@ function mail_time($form_data) {
 	$message = "";
 	$from = "someone@example.com";
 	$headers = "From:".$from;
+	
 	foreach ($form_data as $key => $value) {
 		$message.= "$key = $value\n";
 	}
@@ -30,10 +31,8 @@ function mail_time($form_data) {
 	// Returns true if it sends successfully
 	// AJAX will use this to know if the user is signed up successfully
 	$bool =  mail($to, $subject, $message, $headers);
-	var_dump($bool);
-	return $bool;
-	// return print_r($message); die;
 
+	return $bool;
 }
 
 /*
